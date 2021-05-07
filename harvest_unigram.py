@@ -7,6 +7,8 @@ import glob
 from ngram.Corpus import Corpus
 from ngram.LetterModels import Unigram
 
+from harvest_bigram import proc_stats, get_prob
+
 def run(parent,outputfile):
     x=None
     for filename in glob.glob(os.path.join(parent,"*.word")):
@@ -16,6 +18,7 @@ def run(parent,outputfile):
             x.corpus = Corpus(filename) #update file
         x.frequency_model()
     x.save(outputfile)
+    proc_stats(get_prob(x.letter), outputfile)
     return
 
 if __name__ == "__main__":
